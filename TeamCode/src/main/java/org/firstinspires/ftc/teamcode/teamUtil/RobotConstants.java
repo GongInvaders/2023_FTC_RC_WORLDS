@@ -32,8 +32,8 @@ public class RobotConstants {
     public static final double armBackDelivery = armBack - (armMiddle/2) + 0.1;
     
     
-    public static final double wristFront = 0.0;
-    public static final double wristBack = 0.66;
+    public static final double wristFront = 0.01;
+    public static final double wristBack = 0.67;
 
     public static final double intakeOpen = 0.2;
     public static final double intakeClosed = 0.53;

@@ -20,7 +20,7 @@ public class Intake extends Subsystem {
     public enum IntakePos {
         OPEN(RobotConstants.intakeOpen),
         CLOSED(RobotConstants.intakeClosed),
-        INIT(RobotConstants.intakeOpen);
+        INIT(0);
 
         IntakePos(double position){
             this.position = position;

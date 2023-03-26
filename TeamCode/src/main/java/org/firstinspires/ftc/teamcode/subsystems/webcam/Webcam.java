@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.webcam;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.Subsystem;
@@ -17,11 +19,16 @@ public class Webcam extends Subsystem {
 	private OpenCvCamera camera;
 	private AprilTagDetectionPipeline aprilTagDetectionPipeline;
 	
-	public AprilTagDetection getTag() {
-		return tag;
+	public int getTagId() {
+		if (!(tag == null)){
+			return tag.id;
+		}
+		else {
+			return 0;
+		}
 	}
 	
-	private AprilTagDetection tag = null;
+	private AprilTagDetection tag;
 	
 	public boolean isTagFound() {
 		return tagFound;
@@ -62,6 +69,8 @@ public class Webcam extends Subsystem {
 			
 			}
 		});
+		FtcDashboard.getInstance().startCameraStream(camera, 10); //TODO: remove this for the competition
+		tag = null;
 	}
 	
 	@Override

@@ -1,20 +1,21 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.LimitSwitch;
-import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveBase;
 import org.firstinspires.ftc.teamcode.subsystems.Tensioner;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.webcam.Webcam;
 import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
 import org.firstinspires.ftc.teamcode.teamUtil.odometry.roadrunner.drive.SampleMecanumDrive;
 
-@Autonomous(name="Right Close High 5", group="")
-public class RightHigh5Auto extends ConfiguredOpMode {
+//@Disabled //remove this to make the code appear on the REV
+@Autonomous(name="Left Medium 5 Auto", group="")
+public class LeftMedium5Auto extends ConfiguredOpMode {
 	private SampleMecanumDrive mecanum;
 	private Arm arm;
 	private Wrist wrist;
@@ -36,7 +37,8 @@ public class RightHigh5Auto extends ConfiguredOpMode {
 		webcam = new Webcam();
 		tensioner = new Tensioner(Tensioner.RunMode.DEPLOY);
 		
-		sequence = new TrajectorySequenceStorage().rightCloseHigh5(
+		sequence = new TrajectorySequenceStorage()
+				.leftMedium5 ( //change to correct sequence storage name.
 				r,
 				mecanum,
 				lift,
@@ -59,9 +61,7 @@ public class RightHigh5Auto extends ConfiguredOpMode {
 	
 	@Override
 	public void superStart() {
-		if (webcam.isTagFound()) {
-			sequence.addRightParkSequence(webcam.getTag().id);
-		}
+		sequence.addLeftParkSequence(webcam.getTagId()); //if on the left side, change this to sequence.addLeftParkSequence(webcam.getTagId());
 		webcam.closeStream();
 		sequence.startFollowSetSequenceAsync();
 	}
