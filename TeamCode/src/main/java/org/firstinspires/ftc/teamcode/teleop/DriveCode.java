@@ -39,10 +39,10 @@ public class DriveCode extends ConfiguredOpMode {
 		
 		gamepadEX2.right_trigger.thresholdTrigger(0.05)
 				.onTrue(() -> {
-					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
 				})
 				.onFalse(() -> {
-					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 				});
 		
 		gamepadEX1.left_bumper

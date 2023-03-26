@@ -62,7 +62,7 @@ public class Lift extends Subsystem {
         else if(((lift0Pos + lift1Pos) / 2) >= -1000) liftPos = Math.max(lift0Pos, lift1Pos);
         else liftPos = 0;
     
-        r.setDelivery(liftPos < -500);
+        r.setDelivery(liftPos < -800);
     }
 
     double cachedPower;
@@ -116,20 +116,24 @@ public class Lift extends Subsystem {
         }
         switch (poleHeight){
             case HIGH:
-                targetPos = PoleHeights.HIGH.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 300;
+                targetPos = PoleHeights.HIGH.getEncoderValue() + 400;
+                spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 400;
                 break;
             case MEDIUM:
                 targetPos = PoleHeights.MEDIUM.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.MEDIUM_DROP.getEncoderValue() + 300;
+                spoolHoldPosition = PoleHeights.MEDIUM_DROP.getEncoderValue() + 400;
                 break;
             case LOW:
                 targetPos = PoleHeights.LOW.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.LOW_DROP.getEncoderValue() + 300;
+                spoolHoldPosition = PoleHeights.LOW_DROP.getEncoderValue() + 400;
                 break;
             case GROUND:
                 targetPos = PoleHeights.GROUND.getEncoderValue();
                 spoolHoldPosition = PoleHeights.GROUND.getEncoderValue();
+                break;
+            case HOVER:
+                targetPos = PoleHeights.HOVER.getEncoderValue();
+                spoolHoldPosition = PoleHeights.HOVER.getEncoderValue();
                 break;
             case STACK4:
                 targetPos = PoleHeights.STACK4.getEncoderValue();
@@ -151,8 +155,6 @@ public class Lift extends Subsystem {
                 targetPos = PoleHeights.STACK0.getEncoderValue();
                 spoolHoldPosition = PoleHeights.STACK0.getEncoderValue();
                 break;
-            case IDLE:
-                break;
             default:
                 break;
         }
@@ -163,7 +165,7 @@ public class Lift extends Subsystem {
         if (targetPos > 100){
             targetPos = 100;
         }
-        if(targetPos < (PoleHeights.HIGH.getEncoderValue())) {
+        if(targetPos < (PoleHeights.HIGH.getEncoderValue() - 100)) {
             targetPos = (PoleHeights.HIGH.getEncoderValue());
         }
     }
@@ -203,10 +205,11 @@ public class Lift extends Subsystem {
         HIGH_DROP(-2350),
         MEDIUM_DROP(-1750),
         LOW_DROP(-1000),
-        STACK4(-410),
-        STACK3(-320),
-        STACK2(-230),
-        STACK1(-70),
+        HOVER(-700),
+        STACK4(-390),
+        STACK3(-290),
+        STACK2(-190),
+        STACK1(-90),
         STACK0(0),
         IDLE(0);
 

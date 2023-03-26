@@ -33,6 +33,7 @@ public abstract class ConfiguredOpMode extends OpMode {
         Telemetry.Item initialising = telemetry.addData("", "");
         initialising.setCaption("Initialising");
         initialising.setValue("Robot");
+        telemetry.update();
         
         r = RobotConfig.freshInstance(this);
         gamepadEX1 = new GamepadEX(gamepad1);
@@ -53,16 +54,19 @@ public abstract class ConfiguredOpMode extends OpMode {
         initialisedSubsystems.setCaption("Initialised");
         StringBuilder initialisationSequencer = new StringBuilder("\nRobot");
         initialisedSubsystems.setValue(initialisationSequencer);
+        telemetry.update();
         
         for (int i = 0; i < r.subsystems.size(); i++) {
             Subsystem subsystem = r.subsystems.get(i);
             String[] subsystemStringSplit = subsystem.getClass().toString().split("\\.");
             String subsystemString = subsystemStringSplit[subsystemStringSplit.length-1];
             initialising.setValue(subsystemString);
+            telemetry.update();
             subsystem.init();
             initialisationSequencer.append("\n");
             initialisationSequencer.append(subsystemString);
             initialisedSubsystems.setValue(initialisationSequencer);
+            telemetry.update();
         }
         initialising.setValue("");
         registerTriggers();
