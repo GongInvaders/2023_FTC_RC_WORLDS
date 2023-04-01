@@ -78,14 +78,14 @@ public class ButtonEX {
     public ButtonEX debounce(debouncingType type, long duration) {
         switch (type) {
             case LEADING_EDGE:
-                leadingEdgeDebounce = (long) (duration * 1000000000);
+                leadingEdgeDebounce = (long) (duration * 1e9);
                 break;
             case TRAILING_EDGE:
-                trailingEdgeDebounce = (long) (duration * 1000000000);
+                trailingEdgeDebounce = (long) (duration * 1e9);
                 break;
             case BOTH:
-                leadingEdgeDebounce = (long) (duration * 1000000000);
-                trailingEdgeDebounce = (long) (duration * 1000000000);
+                leadingEdgeDebounce = (long) (duration * 1e9);
+                trailingEdgeDebounce = (long) (duration * 1e9);
                 break;
         }
         return this;

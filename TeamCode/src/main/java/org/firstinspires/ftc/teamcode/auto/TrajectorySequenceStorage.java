@@ -204,7 +204,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.HOVER);
 				})
-				.splineTo(new Vector2d(-33.5, -17.7),  Math.toRadians(90))//drive forward
+				.splineTo(new Vector2d(-34.5, -21.5),  Math.toRadians(90))//drive forward
 				.turn(Math.toRadians(-103))//turn //TODO change
 				.UNSTABLE_addTemporalMarkerOffset(-1.3, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
@@ -231,7 +231,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 				})
-				.lineTo(new Vector2d(-54.4, -10.6).plus(offset))
+				.lineTo(new Vector2d(-54.8, -8.0).plus(offset))
 				.waitSeconds(0.0)
 				.UNSTABLE_addTemporalMarkerOffset(-0.8, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.OPEN);
@@ -254,7 +254,7 @@ public class TrajectorySequenceStorage {
 					arm.presetTargetPosition(Arm.ArmPos.HALF);
 					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
 				})
-				.lineTo(new Vector2d(-33.5, -16.0).plus(offset))
+				.lineTo(new Vector2d(-34.7, -18.0).plus(offset))
 				.UNSTABLE_addTemporalMarkerOffset(-1.2, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
 					arm.presetTargetPosition(Arm.ArmPos.FRONT_DELIVERY);
@@ -324,19 +324,19 @@ public class TrajectorySequenceStorage {
 		trajectorySequenceArrayList.add(leftStartMediumPole());
 		
 		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK4, new Vector2d(0, 0)));
-		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(-0.7, 0)));
+		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(0.0, -0.1)));
 		
-		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 0.5)));
-		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(-0.6, 0.5)));
+		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 0.9)));
+		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(0.1, -0.2)));
 		
-		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK2, new Vector2d(0, 0.9)));
-		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(-0.5, 1.0)));
+		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK2, new Vector2d(0, 1.8)));
+		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(0.2, -0.3)));
 		
-		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK1, new Vector2d(0, 0.9)));
-		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(-0.4, 1.5)));
+		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK1, new Vector2d(0, 2.7)));
+		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(0.3, -0.4)));
 		
-		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK0, new Vector2d(0, 1.9)));
-		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(-0.3, 2.0)));
+		trajectorySequenceArrayList.add(leftMediumPoleToStack(Lift.PoleHeights.STACK0, new Vector2d(0, 3.6)));
+		trajectorySequenceArrayList.add(leftStackToMediumPole(new Vector2d(0.4, -0.5)));
 		
 		trajectorySequenceArrayList.add(parkingPlaceholder());
 		
@@ -511,7 +511,7 @@ public class TrajectorySequenceStorage {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
 				})
-				.lineToLinearHeading(new Pose2d(7, -12, Math.toRadians(90)))
+				.lineToLinearHeading(new Pose2d(6, -12, Math.toRadians(90)))
 				.build();
 	}
 	
@@ -557,7 +557,7 @@ public class TrajectorySequenceStorage {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
 				})
-				.lineToLinearHeading(new Pose2d(-60, -12, Math.toRadians(90)))
+				.lineToLinearHeading(new Pose2d(-64, -12, Math.toRadians(90)))
 				.build();
 	}
 	
@@ -573,7 +573,7 @@ public class TrajectorySequenceStorage {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
 				})
-				.lineToLinearHeading(new Pose2d(-30, -12, Math.toRadians(90)))
+				.lineToLinearHeading(new Pose2d(-37, -12, Math.toRadians(90)))
 				.build();
 	}
 	
@@ -589,7 +589,7 @@ public class TrajectorySequenceStorage {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
 				})
-				.lineToLinearHeading(new Pose2d(-16, -12, Math.toRadians(90)))
+				.lineToLinearHeading(new Pose2d(-6, -11, Math.toRadians(90)))
 				.build();
 	}
 }

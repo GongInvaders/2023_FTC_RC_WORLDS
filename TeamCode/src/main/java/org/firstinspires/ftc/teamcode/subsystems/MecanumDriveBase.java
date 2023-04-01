@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.teamUtil.Angle;
@@ -29,9 +27,16 @@ public class MecanumDriveBase extends Subsystem {
     private Angle robotHeading;
     
     private boolean flipped;
-    private boolean POVmode;
     
-    public MecanumDriveBase(RobotConfig r, boolean fieldCentric){
+    public enum DriveModes{
+        POV,
+        CENTRIC,
+        TANK
+    }
+    
+    private DriveModes driveMode;
+    
+    public MecanumDriveBase(RobotConfig r, boolean fieldCentric, DriveModes driveMode){
         this.r = r;
         this.fieldCentric = fieldCentric;
         frontRight = r.opMode.hardwareMap.get(DcMotorEx.class, ConfigNames.frontRight);
@@ -43,9 +48,10 @@ public class MecanumDriveBase extends Subsystem {
         backRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         backLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        this.driveMode = driveMode;
     }
-    public MecanumDriveBase(boolean fieldCentric){
-        this(RobotConfig.getInstance(), fieldCentric);
+    public MecanumDriveBase(boolean fieldCentric, DriveModes driveMode){
+        this(RobotConfig.getInstance(), fieldCentric, driveMode);
     }
 
     public void trueHolonomicDrive(double planarX, double planarY, double headingX, double headingY, double throttle){
@@ -67,6 +73,29 @@ public class MecanumDriveBase extends Subsystem {
         this.frontLeftPower = (powerX - powerY - headingDelta) * throttle * 0.6;
         
     }
+    
+    public void tankDrive(double leftTank, double rightTank, double leftStrafe, double rightStrafe, boolean throttleInput) {
+        double throttle;
+        if(throttleInput) {
+            throttle = 0.4;
+        }
+        else {
+            throttle = 0.7;
+        }
+        
+        if(flipped) {
+            this.frontRightPower = (leftTank + leftStrafe - rightStrafe) * throttle;
+            this.backRightPower = (leftTank - leftStrafe + rightStrafe) * throttle;
+            this.backLeftPower = (rightTank - rightStrafe + leftStrafe) * throttle;
+            this.frontLeftPower = (rightTank + rightStrafe - leftStrafe) * throttle;
+        }
+        else {
+            this.frontRightPower = (rightTank - rightStrafe + leftStrafe) * throttle;
+            this.backRightPower = (rightTank + rightStrafe - leftStrafe) * throttle;
+            this.backLeftPower = (leftTank + leftStrafe - rightStrafe) * throttle;
+            this.frontLeftPower = (leftTank - leftStrafe + rightStrafe) * throttle;
+        }
+    }
 
     public void setFieldCentric(boolean fieldCentric){
         this.fieldCentric = fieldCentric;
@@ -83,20 +112,26 @@ public class MecanumDriveBase extends Subsystem {
         if(fieldCentric){
             robotHeading = new Angle(r.getImu().getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES)-r.getImuOffset()+90);
             robotHeadingRadians = Math.toRadians(robotHeading.getValue());
-            if(POVmode){
-                headingDelta = -headingX;
-            }
-            else {
-                if (flipped){
-                    targetHeading = new Angle (Angle.atanHandler(headingX, headingY).getValue()+180);
-                }
-                else{
-                    targetHeading = new Angle (Angle.atanHandler(headingX, headingY).getValue());
-                }
-                headingDelta = -(robotHeading.angleShortDifference(targetHeading)/45.0)/Math.max(1, Math.abs(headingDelta));
-                if (Double.isNaN(headingDelta)){
-                    headingDelta = 0;
-                }
+            switch(driveMode) {
+    
+                case POV:
+                    headingDelta = -headingX;
+                    break;
+                case CENTRIC:
+                    if (flipped){
+                        targetHeading = new Angle (Angle.atanHandler(headingX, headingY).getValue()+180);
+                    }
+                    else{
+                        targetHeading = new Angle (Angle.atanHandler(headingX, headingY).getValue());
+                    }
+                    headingDelta = -(robotHeading.angleShortDifference(targetHeading)/45.0)/Math.max(1, Math.abs(headingDelta));
+                    if (Double.isNaN(headingDelta)){
+                        headingDelta = 0;
+                    }
+                    break;
+                case TANK:
+                    
+                    break;
             }
         }
         else{
@@ -146,7 +181,7 @@ public class MecanumDriveBase extends Subsystem {
         this.flipped = flipped;
     }
     
-    public void POVmode(boolean POVmode){
-        this.POVmode = POVmode;
+    public void setDriveMode(DriveModes driveMode){
+        this.driveMode = driveMode;
     }
 }
