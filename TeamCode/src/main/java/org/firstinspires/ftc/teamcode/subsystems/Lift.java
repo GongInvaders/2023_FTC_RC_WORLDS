@@ -205,11 +205,11 @@ public class Lift extends Subsystem {
         HIGH_DROP(-2350),
         MEDIUM_DROP(-1750),
         LOW_DROP(-1000),
-        HOVER(-700),
-        STACK4(-390),//was 390
-        STACK3(-290),//was290
-        STACK2(-190),
-        STACK1(-90),
+        HOVER(-750),
+        STACK4(-410),
+        STACK3(-310),
+        STACK2(-210),
+        STACK1(-110),
         STACK0(0),
         IDLE(0);
 

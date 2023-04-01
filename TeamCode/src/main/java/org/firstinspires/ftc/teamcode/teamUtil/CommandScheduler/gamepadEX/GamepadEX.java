@@ -21,7 +21,9 @@ public class GamepadEX {
             right_bumper,
     
             left_stick_button,
-            right_stick_button;
+            right_stick_button,
+    
+            back;
 
     public ContinuousInput
             leftX,
@@ -52,6 +54,8 @@ public class GamepadEX {
     
         left_stick_button = new ButtonEX(() -> gamepad.left_stick_button);
         right_stick_button = new ButtonEX(() -> gamepad.right_stick_button);
+    
+        back = new ButtonEX(() -> gamepad.back);
     
         leftX = new ContinuousInput(() -> gamepad.left_stick_x);
         leftY = new ContinuousInput(() -> -gamepad.left_stick_y);

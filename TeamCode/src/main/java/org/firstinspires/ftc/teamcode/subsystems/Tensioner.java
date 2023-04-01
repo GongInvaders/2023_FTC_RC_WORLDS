@@ -47,7 +47,7 @@ public class Tensioner extends Subsystem {
 				}
 				break;
 			case STOW:
-				if(RobotConfig.elapsedTime.time() < 8.0){
+				if(RobotConfig.elapsedTime.time() < 8.3){
 					power = -1.0;
 				}
 				else {
