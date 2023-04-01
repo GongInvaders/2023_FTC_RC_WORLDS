@@ -61,10 +61,10 @@ public class MecanumDriveBase extends Subsystem {
         this.headingX = headingX;
         this.headingY = headingY;
         
-        this.frontRightPower = (powerX + powerY + headingDelta) * throttle;
-        this.backRightPower = (powerX - powerY + headingDelta) * throttle;
-        this.backLeftPower = (powerX + powerY - headingDelta) * throttle;
-        this.frontLeftPower = (powerX - powerY - headingDelta) * throttle;
+        this.frontRightPower = (powerX + powerY + headingDelta) * throttle * 0.6;
+        this.backRightPower = (powerX - powerY + headingDelta) * throttle * 0.6;
+        this.backLeftPower = (powerX + powerY - headingDelta) * throttle * 0.6;
+        this.frontLeftPower = (powerX - powerY - headingDelta) * throttle * 0.6;
         
     }
 

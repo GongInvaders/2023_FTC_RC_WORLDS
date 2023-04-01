@@ -199,15 +199,15 @@ public class Lift extends Subsystem {
     
     public enum PoleHeights {
         HIGH(-2750),
-        MEDIUM(-1950),
+        MEDIUM(-2050),//was 1950
         LOW(-1250),
         GROUND(0),
         HIGH_DROP(-2350),
         MEDIUM_DROP(-1750),
         LOW_DROP(-1000),
         HOVER(-700),
-        STACK4(-390),
-        STACK3(-290),
+        STACK4(-390),//was 390
+        STACK3(-290),//was290
         STACK2(-190),
         STACK1(-90),
         STACK0(0),
