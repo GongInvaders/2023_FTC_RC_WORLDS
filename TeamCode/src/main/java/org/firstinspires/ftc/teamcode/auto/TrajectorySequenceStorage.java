@@ -30,6 +30,67 @@ public class TrajectorySequenceStorage {
 	public static final Pose2d startPoseRight = new Pose2d (34, -65, Math.toRadians(90));
 
 	public static final Pose2d startPoseLeft = new Pose2d (-34, -65, Math.toRadians(90));
+
+
+	private TrajectorySequence rightStartMediumPark(){
+		drive.setPoseEstimate(startPoseRight);
+		return drive.trajectorySequenceBuilder(startPoseRight)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					arm.presetTargetPosition(Arm.ArmPos.FRONT_DELIVERY);
+					r.setPickup(true);
+					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
+					lift.presetLiftPosition(Lift.PoleHeights.HOVER);
+				})
+				.strafeTo(new Vector2d(34, -36.5))//drive forward //was 33.5 for x
+				.strafeTo(new Vector2d(13, -36.5))//turn //TODO change
+				.UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
+					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
+					arm.presetTargetPosition(Arm.ArmPos.FRONT_DELIVERY);
+				})
+				.waitSeconds(0)
+				.UNSTABLE_addTemporalMarkerOffset(-0.1, () -> {
+					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM_DROP);
+				})
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.build();
+	}
+
+	private TrajectorySequence leftStartMediumPark(){
+		drive.setPoseEstimate(startPoseLeft);
+		return drive.trajectorySequenceBuilder(startPoseLeft)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					arm.presetTargetPosition(Arm.ArmPos.FRONT_DELIVERY);
+					r.setPickup(true);
+					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
+					lift.presetLiftPosition(Lift.PoleHeights.HOVER);
+				})
+				.strafeTo(new Vector2d(-34, -36.5))//drive forward //was 33.5 for x
+				.strafeTo(new Vector2d(-20, -36.5))//turn //TODO change
+				.UNSTABLE_addTemporalMarkerOffset(-2, () -> {
+					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
+					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
+					arm.presetTargetPosition(Arm.ArmPos.FRONT_DELIVERY);
+				})
+				.waitSeconds(0)
+				.UNSTABLE_addTemporalMarkerOffset(-0.1, () -> {
+					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM_DROP);
+				})
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.build();
+	}
 	
 	private TrajectorySequence rightStartMediumPole(){
 		drive.setPoseEstimate(startPoseRight);
@@ -94,7 +155,7 @@ public class TrajectorySequenceStorage {
 					arm.presetTargetPosition(Arm.ArmPos.HALF);
 					wrist.presetTargetPosition(Wrist.WristPos.BACK);
 				})
-				.lineTo(new Vector2d(33.5, -17.0).plus(offset))
+				.lineTo(new Vector2d(33.5, -16.7).plus(offset))
 				.UNSTABLE_addTemporalMarkerOffset(-1.2, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
 					wrist.presetTargetPosition(Wrist.WristPos.BACK);
@@ -175,7 +236,7 @@ public class TrajectorySequenceStorage {
 					arm.presetTargetPosition(Arm.ArmPos.HALF);
 					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
 				})
-				.lineTo(new Vector2d(33.5, -6.3).plus(offset))
+				.lineTo(new Vector2d(33, -9.8).plus(offset))
 				.UNSTABLE_addTemporalMarkerOffset(-1.2, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.HIGH);
 					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
@@ -301,7 +362,72 @@ public class TrajectorySequenceStorage {
 		
 		return this;
 	}
-	
+
+	public TrajectorySequenceStorage rightMediumPark(
+			RobotConfig r,
+			SampleMecanumDrive drive,
+			Lift lift,
+			Intake intake,
+			Arm arm,
+			Wrist wrist,
+			Webcam webcam
+	){
+		this.r = r;
+		this.drive = drive;
+		this.lift = lift;
+		this.intake = intake;
+		this.arm = arm;
+		this.wrist = wrist;
+		this.webcam = webcam;
+		this.sequenceIndex = 0;
+
+		trajectorySequenceArrayList = new ArrayList<>();
+		trajectorySequenceArrayList.add(rightStartMediumPark());
+
+
+		trajectorySequenceArrayList.add(parkingPlaceholder());
+
+		trajectorySequences = new TrajectorySequence[trajectorySequenceArrayList.size()];
+		for (int i = 0; i < trajectorySequenceArrayList.size(); i++) {
+			trajectorySequences[i] = trajectorySequenceArrayList.get(i);
+		}
+
+		return this;
+	}
+
+	public TrajectorySequenceStorage leftMediumPark(
+			RobotConfig r,
+			SampleMecanumDrive drive,
+			Lift lift,
+			Intake intake,
+			Arm arm,
+			Wrist wrist,
+			Webcam webcam
+	){
+		this.r = r;
+		this.drive = drive;
+		this.lift = lift;
+		this.intake = intake;
+		this.arm = arm;
+		this.wrist = wrist;
+		this.webcam = webcam;
+		this.sequenceIndex = 0;
+
+		trajectorySequenceArrayList = new ArrayList<>();
+		trajectorySequenceArrayList.add(leftStartMediumPark());
+
+
+		trajectorySequenceArrayList.add(parkingPlaceholder());
+
+		trajectorySequences = new TrajectorySequence[trajectorySequenceArrayList.size()];
+		for (int i = 0; i < trajectorySequenceArrayList.size(); i++) {
+			trajectorySequences[i] = trajectorySequenceArrayList.get(i);
+		}
+
+		return this;
+	}
+
+
 	public TrajectorySequenceStorage leftMedium5(
 			RobotConfig r,
 			SampleMecanumDrive drive,
@@ -372,16 +498,16 @@ public class TrajectorySequenceStorage {
 		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK4, new Vector2d(0, 0))); //X offset was 0
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.7, 0)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 0.6))); //X offset was 0
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 0.9))); //X offset was 0
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.6, 0.5)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK2, new Vector2d(0, 1.1)));
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK2, new Vector2d(0, 1.8)));
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.5, 1.0)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK1, new Vector2d(0, 1.2)));
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK1, new Vector2d(0, 2.7)));
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.4, 1.4)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK0, new Vector2d(0, 2.3)));
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK0, new Vector2d(0, 3.6)));
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.3, 1.8)));
 		
 		trajectorySequenceArrayList.add(parkingPlaceholder());
@@ -415,8 +541,8 @@ public class TrajectorySequenceStorage {
 		trajectorySequenceArrayList = new ArrayList<>();
 		trajectorySequenceArrayList.add(rightStartMidlineHighPole());
 
-		trajectorySequenceArrayList.add(rightMidlineHighPoleToStack(Lift.PoleHeights.STACK4, new Vector2d(0, 1.0)));
-		trajectorySequenceArrayList.add(rightStackToMidlineHighPole(new Vector2d(-0.2, -0.3)));
+		trajectorySequenceArrayList.add(rightMidlineHighPoleToStack(Lift.PoleHeights.STACK4, new Vector2d(0, 2.0)));
+		trajectorySequenceArrayList.add(rightStackToMidlineHighPole(new Vector2d(-0.2, 1.7)));
 
 		trajectorySequenceArrayList.add(rightMidlineHighPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 1.0)));
 		trajectorySequenceArrayList.add(rightStackToMidlineHighPole(new Vector2d(-0.4, -0.6)));
@@ -457,6 +583,34 @@ public class TrajectorySequenceStorage {
 			return;
 		}
 		drive.followTrajectorySequenceAsync(trajectorySequences[sequenceIndex]);
+	}
+
+	public void addShortLeftParkSequence(int tagid){
+		switch (tagid){
+			case 1:
+				trajectorySequences[trajectorySequences.length-1] = shortLeftPark1(trajectorySequences[trajectorySequences.length-2].end());
+				break;
+			case 3:
+				trajectorySequences[trajectorySequences.length-1] = shortLeftPark3(trajectorySequences[trajectorySequences.length-2].end());
+				break;
+			default:
+				trajectorySequences[trajectorySequences.length-1] = shortLeftPark2(trajectorySequences[trajectorySequences.length-2].end());
+				break;
+		}
+	}
+
+	public void addShortRightParkSequence(int tagid){
+		switch (tagid){
+			case 1:
+				trajectorySequences[trajectorySequences.length-1] = shortRightPark1(trajectorySequences[trajectorySequences.length-2].end());
+				break;
+			case 3:
+				trajectorySequences[trajectorySequences.length-1] = shortRightPark3(trajectorySequences[trajectorySequences.length-2].end());
+				break;
+			default:
+				trajectorySequences[trajectorySequences.length-1] = shortRightPark2(trajectorySequences[trajectorySequences.length-2].end());
+				break;
+		}
 	}
 	
 	public void addRightParkSequence(int tagid){
@@ -500,6 +654,105 @@ public class TrajectorySequenceStorage {
 				})
 				.build();
 	}
+
+	private TrajectorySequence shortRightPark1(Pose2d startPose){
+		return drive.trajectorySequenceBuilder(startPose)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+					arm.presetTargetPosition(Arm.ArmPos.HALF);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
+				})
+				.lineToLinearHeading(new Pose2d(6, -37.5, Math.toRadians(-89)))
+				.lineTo(new Vector2d(6, -32))
+				.build();
+	}
+
+	private TrajectorySequence shortRightPark2(Pose2d startPose){
+		return drive.trajectorySequenceBuilder(startPose)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+					arm.presetTargetPosition(Arm.ArmPos.HALF);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
+				})
+				.lineToLinearHeading(new Pose2d(36, -37.5, Math.toRadians(-89)))
+				.lineTo(new Vector2d(36, -32))
+				.build();
+	}
+
+	private TrajectorySequence shortRightPark3(Pose2d startPose){
+		return drive.trajectorySequenceBuilder(startPose)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+					arm.presetTargetPosition(Arm.ArmPos.HALF);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
+				})
+				.lineToLinearHeading(new Pose2d(62, -37.5, Math.toRadians(-89)))
+				.lineTo(new Vector2d(62, -32))
+				.build();
+	}
+
+	private TrajectorySequence shortLeftPark1(Pose2d startPose){
+		return drive.trajectorySequenceBuilder(startPose)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+					wrist.presetTargetPosition(Wrist.WristPos.BACK);
+					arm.presetTargetPosition(Arm.ArmPos.HALF);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
+				})
+				.lineToLinearHeading(new Pose2d(-64, -36, Math.toRadians(90)))
+				.build();
+	}
+
+	private TrajectorySequence shortLeftPark2(Pose2d startPose){
+		return drive.trajectorySequenceBuilder(startPose)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+					wrist.presetTargetPosition(Wrist.WristPos.BACK);
+					arm.presetTargetPosition(Arm.ArmPos.HALF);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
+				})
+				.lineToLinearHeading(new Pose2d(-37, -36, Math.toRadians(90)))
+				.build();
+	}
+
+	private TrajectorySequence shortLeftPark3(Pose2d startPose){
+		return drive.trajectorySequenceBuilder(startPose)
+				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
+					intake.presetTargetPosition(Intake.IntakePos.OPEN);
+				})
+				.waitSeconds(0.1)
+				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+					wrist.presetTargetPosition(Wrist.WristPos.BACK);
+					arm.presetTargetPosition(Arm.ArmPos.HALF);
+					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
+					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
+				})
+				.lineToLinearHeading(new Pose2d(-6, -36, Math.toRadians(90)))
+				.build();
+	}
+
+
+
 	private TrajectorySequence rightPark1(Pose2d startPose){
 		return drive.trajectorySequenceBuilder(startPose)
 				.UNSTABLE_addTemporalMarkerOffset(0, () -> {
@@ -511,7 +764,7 @@ public class TrajectorySequenceStorage {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 					lift.presetLiftPosition(Lift.PoleHeights.GROUND);
 				})
-				.lineToLinearHeading(new Pose2d(6, -12, Math.toRadians(90)))
+				.lineToLinearHeading(new Pose2d(4, -12, Math.toRadians(90)))
 				.build();
 	}
 	
