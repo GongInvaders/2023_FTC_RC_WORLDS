@@ -62,7 +62,7 @@ public class Lift extends Subsystem {
         else if(((lift0Pos + lift1Pos) / 2) >= -1000) liftPos = Math.max(lift0Pos, lift1Pos);
         else liftPos = 0;
     
-        r.setDelivery(liftPos < -800);
+        r.setDelivery(liftPos < -700);
     }
 
     double cachedPower;
@@ -116,7 +116,7 @@ public class Lift extends Subsystem {
         }
         switch (poleHeight){
             case HIGH:
-                targetPos = PoleHeights.HIGH.getEncoderValue() + 200;
+                targetPos = PoleHeights.HIGH.getEncoderValue() + 100;
                 spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 200;
                 break;
             case MEDIUM:
@@ -205,7 +205,7 @@ public class Lift extends Subsystem {
         HIGH_DROP(-2350),
         MEDIUM_DROP(-1750),
         LOW_DROP(-1000),
-        HOVER(-750),
+        HOVER(-650),
         STACK4(-410),
         STACK3(-310),
         STACK2(-210),

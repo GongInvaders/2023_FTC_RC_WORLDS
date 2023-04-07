@@ -94,7 +94,7 @@ public class TrajectorySequenceStorage {
 					arm.presetTargetPosition(Arm.ArmPos.HALF);
 					wrist.presetTargetPosition(Wrist.WristPos.BACK);
 				})
-				.lineTo(new Vector2d(33.5, -17.0).plus(offset))
+				.lineTo(new Vector2d(33.5, -16.7).plus(offset))
 				.UNSTABLE_addTemporalMarkerOffset(-1.2, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
 					wrist.presetTargetPosition(Wrist.WristPos.BACK);
@@ -372,16 +372,16 @@ public class TrajectorySequenceStorage {
 		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK4, new Vector2d(0, 0))); //X offset was 0
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.7, 0)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 0.6))); //X offset was 0
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK3, new Vector2d(0, 0.9))); //X offset was 0
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.6, 0.5)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK2, new Vector2d(0, 1.1)));
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK2, new Vector2d(0, 1.8)));
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.5, 1.0)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK1, new Vector2d(0, 1.2)));
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK1, new Vector2d(0, 2.7)));
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.4, 1.4)));
 		
-		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK0, new Vector2d(0, 2.3)));
+		trajectorySequenceArrayList.add(rightMediumPoleToStack(Lift.PoleHeights.STACK0, new Vector2d(0, 3.6)));
 		trajectorySequenceArrayList.add(rightStackToMediumPole(new Vector2d(0.3, 1.8)));
 		
 		trajectorySequenceArrayList.add(parkingPlaceholder());
