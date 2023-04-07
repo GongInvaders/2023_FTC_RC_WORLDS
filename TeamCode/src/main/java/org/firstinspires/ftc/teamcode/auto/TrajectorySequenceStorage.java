@@ -105,7 +105,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.HOVER);
 				})
-				.splineTo(new Vector2d(32.5, -17.7),  Math.toRadians(90))//drive forward //was 33.5 for x
+				.splineTo(new Vector2d(32.1, -17.4),  Math.toRadians(90))//drive forward //was 33.5 for x
 				.turn(Math.toRadians(-78.5))//turn //TODO change
 				.UNSTABLE_addTemporalMarkerOffset(-1.3, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
@@ -129,10 +129,10 @@ public class TrajectorySequenceStorage {
 					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
 					arm.presetTargetPosition(Arm.ArmPos.HALF);
 				})
-				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
+				.UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 				})
-				.lineTo(new Vector2d(55.5, -10.6).plus(offset))
+				.lineTo(new Vector2d(55.3, -10.2).plus(offset))
 				.waitSeconds(0.0)
 				.UNSTABLE_addTemporalMarkerOffset(-0.8, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.OPEN);
@@ -155,7 +155,7 @@ public class TrajectorySequenceStorage {
 					arm.presetTargetPosition(Arm.ArmPos.HALF);
 					wrist.presetTargetPosition(Wrist.WristPos.BACK);
 				})
-				.lineTo(new Vector2d(33.5, -16.7).plus(offset))
+				.lineTo(new Vector2d(33.1, -16.3).plus(offset))
 				.UNSTABLE_addTemporalMarkerOffset(-1.2, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
 					wrist.presetTargetPosition(Wrist.WristPos.BACK);
@@ -265,7 +265,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.HOVER);
 				})
-				.splineTo(new Vector2d(-34.5, -21.5),  Math.toRadians(90))//drive forward
+				.splineTo(new Vector2d(-34.5, -21.0),  Math.toRadians(90))//drive forward
 				.turn(Math.toRadians(-103))//turn //TODO change
 				.UNSTABLE_addTemporalMarkerOffset(-1.3, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
@@ -292,7 +292,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 				})
-				.lineTo(new Vector2d(-54.8, -8.0).plus(offset))
+				.lineTo(new Vector2d(-55.55, -8.0).plus(offset))
 				.waitSeconds(0.0)
 				.UNSTABLE_addTemporalMarkerOffset(-0.8, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.OPEN);

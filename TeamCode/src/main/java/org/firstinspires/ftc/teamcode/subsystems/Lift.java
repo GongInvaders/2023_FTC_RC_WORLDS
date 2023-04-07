@@ -62,7 +62,7 @@ public class Lift extends Subsystem {
         else if(((lift0Pos + lift1Pos) / 2) >= -1000) liftPos = Math.max(lift0Pos, lift1Pos);
         else liftPos = 0;
     
-        r.setDelivery(liftPos < -800);
+        r.setDelivery(liftPos < -700);
     }
 
     double cachedPower;
@@ -116,16 +116,16 @@ public class Lift extends Subsystem {
         }
         switch (poleHeight){
             case HIGH:
-                targetPos = PoleHeights.HIGH.getEncoderValue() + 400;
-                spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 400;
+                targetPos = PoleHeights.HIGH.getEncoderValue() + 100;
+                spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 200;
                 break;
             case MEDIUM:
-                targetPos = PoleHeights.MEDIUM.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.MEDIUM_DROP.getEncoderValue() + 400;
+                targetPos = PoleHeights.MEDIUM.getEncoderValue() + 250;
+                spoolHoldPosition = PoleHeights.MEDIUM_DROP.getEncoderValue() + 200;
                 break;
             case LOW:
-                targetPos = PoleHeights.LOW.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.LOW_DROP.getEncoderValue() + 400;
+                targetPos = PoleHeights.LOW.getEncoderValue() + 250;
+                spoolHoldPosition = PoleHeights.LOW_DROP.getEncoderValue() + 200;
                 break;
             case GROUND:
                 targetPos = PoleHeights.GROUND.getEncoderValue();
@@ -205,7 +205,7 @@ public class Lift extends Subsystem {
         HIGH_DROP(-2350),
         MEDIUM_DROP(-1750),
         LOW_DROP(-1000),
-        HOVER(-725),
+        HOVER(-650),
         STACK4(-410),
         STACK3(-310),
         STACK2(-210),
