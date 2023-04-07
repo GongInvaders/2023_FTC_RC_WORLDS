@@ -116,16 +116,16 @@ public class Lift extends Subsystem {
         }
         switch (poleHeight){
             case HIGH:
-                targetPos = PoleHeights.HIGH.getEncoderValue() + 400;
-                spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 400;
+                targetPos = PoleHeights.HIGH.getEncoderValue() + 200;
+                spoolHoldPosition = PoleHeights.HIGH_DROP.getEncoderValue() + 200;
                 break;
             case MEDIUM:
-                targetPos = PoleHeights.MEDIUM.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.MEDIUM_DROP.getEncoderValue() + 400;
+                targetPos = PoleHeights.MEDIUM.getEncoderValue() + 250;
+                spoolHoldPosition = PoleHeights.MEDIUM_DROP.getEncoderValue() + 200;
                 break;
             case LOW:
-                targetPos = PoleHeights.LOW.getEncoderValue() + 450;
-                spoolHoldPosition = PoleHeights.LOW_DROP.getEncoderValue() + 400;
+                targetPos = PoleHeights.LOW.getEncoderValue() + 250;
+                spoolHoldPosition = PoleHeights.LOW_DROP.getEncoderValue() + 200;
                 break;
             case GROUND:
                 targetPos = PoleHeights.GROUND.getEncoderValue();

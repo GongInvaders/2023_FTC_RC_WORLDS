@@ -204,7 +204,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.HOVER);
 				})
-				.splineTo(new Vector2d(-34.5, -21.5),  Math.toRadians(90))//drive forward
+				.splineTo(new Vector2d(-34.5, -21.0),  Math.toRadians(90))//drive forward
 				.turn(Math.toRadians(-103))//turn //TODO change
 				.UNSTABLE_addTemporalMarkerOffset(-1.3, () -> {
 					lift.presetLiftPosition(Lift.PoleHeights.MEDIUM);
@@ -231,7 +231,7 @@ public class TrajectorySequenceStorage {
 				.UNSTABLE_addTemporalMarkerOffset(0.2, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 				})
-				.lineTo(new Vector2d(-54.8, -8.0).plus(offset))
+				.lineTo(new Vector2d(-55.55, -8.0).plus(offset))
 				.waitSeconds(0.0)
 				.UNSTABLE_addTemporalMarkerOffset(-0.8, () -> {
 					intake.presetTargetPosition(Intake.IntakePos.OPEN);

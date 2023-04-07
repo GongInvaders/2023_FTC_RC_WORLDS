@@ -139,9 +139,7 @@ public class DriveCode extends ConfiguredOpMode {
 				gamepadEX2.x.buttonState(),
 				gamepadEX2.a.buttonState()
 		);
-		
-		telemetry.addData("delivery", r.isDelivery());
-		telemetry.addData("pickup", r.isPickup());
+
 	}
 
 	@Override
