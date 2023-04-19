@@ -9,11 +9,11 @@ import org.firstinspires.ftc.teamcode.subsystems.LimitSwitch;
 import org.firstinspires.ftc.teamcode.subsystems.Tensioner;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.webcam.Webcam;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 import org.firstinspires.ftc.teamcode.teamUtil.odometry.roadrunner.drive.SampleMecanumDrive;
 
 @Autonomous(name="Right Medium Park Auto", group="")
-public class RightMediumParkAuto extends ConfiguredOpMode {
+public class RightMediumParkAuto extends OpModeWrapper {
 	private SampleMecanumDrive mecanum;
 	private Arm arm;
 	private Wrist wrist;
@@ -29,7 +29,7 @@ public class RightMediumParkAuto extends ConfiguredOpMode {
 		mecanum = new SampleMecanumDrive(hardwareMap);
 		arm = new Arm();
 		wrist = new Wrist();
-		intake = new Intake();
+		intake = new Intake(Intake.IntakePos.INIT);
 		limitSwitch = new LimitSwitch();
 		lift = new Lift();
 		webcam = new Webcam();

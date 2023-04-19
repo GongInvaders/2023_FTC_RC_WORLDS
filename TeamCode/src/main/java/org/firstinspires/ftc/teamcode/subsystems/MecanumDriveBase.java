@@ -84,10 +84,10 @@ public class MecanumDriveBase extends Subsystem {
         }
         
         if(flipped) {
-            this.frontRightPower = (leftTank + leftStrafe - rightStrafe) * throttle;
-            this.backRightPower = (leftTank - leftStrafe + rightStrafe) * throttle;
-            this.backLeftPower = (rightTank - rightStrafe + leftStrafe) * throttle;
-            this.frontLeftPower = (rightTank + rightStrafe - leftStrafe) * throttle;
+            this.frontRightPower = -(leftTank + leftStrafe - rightStrafe) * throttle;
+            this.backRightPower = -(leftTank - leftStrafe + rightStrafe) * throttle;
+            this.backLeftPower = -(rightTank - rightStrafe + leftStrafe) * throttle;
+            this.frontLeftPower = -(rightTank + rightStrafe - leftStrafe) * throttle;
         }
         else {
             this.frontRightPower = (rightTank - rightStrafe + leftStrafe) * throttle;

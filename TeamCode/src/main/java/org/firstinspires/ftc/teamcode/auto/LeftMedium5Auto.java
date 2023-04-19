@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -10,12 +9,12 @@ import org.firstinspires.ftc.teamcode.subsystems.LimitSwitch;
 import org.firstinspires.ftc.teamcode.subsystems.Tensioner;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.webcam.Webcam;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 import org.firstinspires.ftc.teamcode.teamUtil.odometry.roadrunner.drive.SampleMecanumDrive;
 
 //@Disabled //remove this to make the code appear on the REV
 @Autonomous(name="Left Medium 5 Auto", group="")
-public class LeftMedium5Auto extends ConfiguredOpMode {
+public class LeftMedium5Auto extends OpModeWrapper {
 	private SampleMecanumDrive mecanum;
 	private Arm arm;
 	private Wrist wrist;
@@ -31,7 +30,7 @@ public class LeftMedium5Auto extends ConfiguredOpMode {
 		mecanum = new SampleMecanumDrive(hardwareMap);
 		arm = new Arm();
 		wrist = new Wrist();
-		intake = new Intake();
+		intake = new Intake(Intake.IntakePos.INIT);
 		limitSwitch = new LimitSwitch();
 		lift = new Lift();
 		webcam = new Webcam();

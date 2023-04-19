@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.LimitSwitch;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveBase;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.Trigger;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 import org.firstinspires.ftc.teamcode.teamUtil.RobotConfig;
 
-@TeleOp(name = "FULL WORLDS DRIVECODE, ft. CRACKER BARREL \n\n\n\n BIIIIIG", group = ".CRACKER BARREL")
-public class DriveCode extends ConfiguredOpMode {
+// brodie mode biggest bird edition
+@TeleOp(name = "brodie mode \nbiggest bird edition \nft. CRACKER BARREL \nft. blue lobster \n\n\nBIIIIIIIG", group = "!up to the ftrony!")
+public class DriveCode extends OpModeWrapper {
 	private MecanumDriveBase mecanum;
 	private Arm arm;
 	private Wrist wrist;
@@ -21,9 +21,8 @@ public class DriveCode extends ConfiguredOpMode {
 	private LimitSwitch limitSwitch;
 	private Lift lift;
 	
-	Trigger bothBumpers;
-	
 	double checkTime;
+	boolean throttle;
 	
 	
 	@Override
@@ -31,21 +30,17 @@ public class DriveCode extends ConfiguredOpMode {
 		mecanum = new MecanumDriveBase(true, MecanumDriveBase.DriveModes.TANK);
 		arm = new Arm();
 		wrist = new Wrist();
-		intake = new Intake();
+		intake = new Intake(Intake.IntakePos.CLOSED);
 		limitSwitch = new LimitSwitch();
 		lift = new Lift();
 	}
 
 	@Override
 	public void registerTriggers() {
-		gamepadEX2.rightY.applyDeadZone(0.2);
+		gamepadEX2.rightY.applyDeadZone(0.1);
 		
-		gamepadEX2.left_trigger.thresholdTrigger(0.2)
-				.onTrue(() -> {
-					r.setDelivery(false);
-				});
-		
-		gamepadEX2.right_trigger.thresholdTrigger(0.9)
+		gamepadEX2.right_trigger
+				.thresholdTrigger(0.9)
 				.onTrue(() -> {
 					intake.presetTargetPosition(Intake.IntakePos.OPEN);
 					checkTime = RobotConfig.elapsedTime.time();
@@ -53,14 +48,27 @@ public class DriveCode extends ConfiguredOpMode {
 				.onFalse(() -> {
 					intake.presetTargetPosition(Intake.IntakePos.CLOSED);
 				});
-		gamepadEX2.right_trigger.thresholdTrigger(0.1)
+		gamepadEX2.right_trigger
+				.thresholdTrigger(0.1)
 				.onTrue(() -> {
 					r.setPickup(true);
 				})
 				.onFalse(() -> {
-					if (RobotConfig.elapsedTime.time() - checkTime > 0.1) {
+					if (RobotConfig.elapsedTime.time() - checkTime > 0.15) {
 						r.setPickup(false);
 					}
+				});
+		gamepadEX2.left_trigger
+				.thresholdTrigger(0.2)
+				.onTrue(() -> {
+					r.setDelivery(false);
+					r.setPickup(true);
+				});
+		
+		gamepadEX2.back
+				.onPress()
+				.onTrue(() -> {
+					lift.resetEncoders();
 				});
 		
 		gamepadEX1.back
@@ -68,12 +76,6 @@ public class DriveCode extends ConfiguredOpMode {
 				.onTrue(() -> {
 					mecanum.flipDriveBase();
 				});
-		
-//		gamepadEX1.right_bumper
-//				.onPress()
-//				.onTrue(() -> {
-//					mecanum.setDriveBaseFlip(false);
-//				});
 		
 		gamepadEX1.left_bumper
 				.isPressed()
@@ -89,20 +91,10 @@ public class DriveCode extends ConfiguredOpMode {
 					wrist.presetTargetPosition(Wrist.WristPos.FRONT);
 				});
 		
-//		bothBumpers = new Trigger(() -> (gamepadEX1.right_bumper.buttonState() || gamepadEX1.left_bumper.buttonState()))
-//				.onFalse(() -> {
-//					r.setPickup(true);
-//				});
-		
-//		gamepadEX1.right_stick_button
-//				.onPress()
-//				.toggleOnTrue(() -> {
-//					mecanum.setDriveMode(MecanumDriveBase.DriveModes.CENTRIC);
-//				})
-//				.toggleOnFalse(() -> {
-//					mecanum.setDriveMode(MecanumDriveBase.DriveModes.POV);
-//				});
-		
+		gamepadEX1.right_stick_button
+				.onPress()
+				.toggleOnTrue(() -> throttle = true)
+				.toggleOnFalse(() -> throttle = false);
 	}
 
 	@Override
@@ -116,19 +108,12 @@ public class DriveCode extends ConfiguredOpMode {
 
 	@Override
 	public void superLoop() {
-//		mecanum.trueHolonomicDrive(
-//				gamepadEX1.leftX.getValue(),
-//				gamepadEX1.leftY.getValue(),
-//				gamepadEX1.rightX.getValue(),
-//				gamepadEX1.rightY.getValue(),
-//				1 - gamepadEX1.right_trigger.getValue()
-//		);
 		mecanum.tankDrive(
 				gamepadEX1.leftY.getValue(),
 				gamepadEX1.rightY.getValue(),
 				gamepadEX1.left_trigger.getValue(),
 				gamepadEX1.right_trigger.getValue(),
-				gamepadEX1.a.buttonState()
+				throttle
 		);
 		
 		lift.liftInputs(
@@ -139,7 +124,6 @@ public class DriveCode extends ConfiguredOpMode {
 				gamepadEX2.x.buttonState(),
 				gamepadEX2.a.buttonState()
 		);
-
 	}
 
 	@Override

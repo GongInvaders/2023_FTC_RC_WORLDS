@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.*;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 
 @TeleOp(name="Configured Servo Arm Test", group="TEST")
-public class ConfiguredOpModeArmTest extends ConfiguredOpMode {
+public class ConfiguredOpModeArmTest extends OpModeWrapper {
 
     private Arm arm;
     private Wrist wrist;
@@ -20,7 +20,7 @@ public class ConfiguredOpModeArmTest extends ConfiguredOpMode {
     public void superInit() {
         arm = new Arm();
         wrist = new Wrist();
-        intake = new Intake();
+        intake = new Intake(Intake.IntakePos.CLOSED);
         limitSwitch = new LimitSwitch();
         lift = new Lift();
         telemetry.setAutoClear(true);
