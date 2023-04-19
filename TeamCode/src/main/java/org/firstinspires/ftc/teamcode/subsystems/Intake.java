@@ -9,12 +9,14 @@ import org.firstinspires.ftc.teamcode.teamUtil.RobotConstants;
 
 public class Intake extends Subsystem {
     RobotConfig r;
+    private IntakePos initPos;
 
-    public Intake(RobotConfig r) {
+    public Intake(RobotConfig r, IntakePos initPos) {
+        this.initPos = initPos;
         this.r = r;
     }
-    public Intake(){
-        r = RobotConfig.getInstance();
+    public Intake(IntakePos initPos){
+        this (RobotConfig.getInstance(), initPos);
     }
 
     public enum IntakePos {
@@ -47,7 +49,7 @@ public class Intake extends Subsystem {
     @Override
     public void init() {
         intake = r.opMode.hardwareMap.get(Servo.class, ConfigNames.intake);
-        presetTargetPosition(IntakePos.INIT);
+        presetTargetPosition(initPos);
         update();
     }
 

@@ -6,20 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.Scheduler;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.Subsystem;
 import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.gamepadEX.GamepadEX;
 import org.firstinspires.ftc.teamcode.teamUtil.ConfigNames;
 import org.firstinspires.ftc.teamcode.teamUtil.RobotConfig;
-
-import java.util.ArrayList;
 
 /**
  * Assists with update loops and the like for the integration of robotConfig.
  * Grants access to the robotConfig instance at creation too.
  * To be used instead of OpMode
  */
-public abstract class ConfiguredOpMode extends OpMode {
+public abstract class OpModeWrapper extends OpMode {
 
     public RobotConfig r;
     public GamepadEX
@@ -80,6 +76,7 @@ public abstract class ConfiguredOpMode extends OpMode {
         }
         r.scheduler.pollSubsystems();
         superInit_Loop();
+        telemetry.update();
     }
 
     public abstract void superStart();
@@ -102,6 +99,7 @@ public abstract class ConfiguredOpMode extends OpMode {
         r.scheduler.updateSubsystems();
         gamepadEX1.endLoopUpdate();
         gamepadEX2.endLoopUpdate();
+        telemetry.update();
     }
 
     public abstract void superStop();

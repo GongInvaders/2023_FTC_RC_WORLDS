@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.subsystems.swerve.SwerveDriveBase;
 import org.firstinspires.ftc.teamcode.teamUtil.*;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 import org.firstinspires.ftc.teamcode.teamUtil.trajectoryAssembly.*;
 
 /**
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.teamUtil.trajectoryAssembly.*;
  */
 @Disabled
 @Autonomous(name = "Swerve Auto Test", group = "Worlds")
-public class ExampleAuto extends ConfiguredOpMode {
+public class ExampleAuto extends OpModeWrapper {
 	SwerveDriveBase swerve = new SwerveDriveBase(RobotConstants.enabledModules.BOTH);
 	TrajectoryAssembly testDrive;
 	

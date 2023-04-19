@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Tensioner;
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 
 @TeleOp(name="Tensioner Control", group = "Tensioner")
-public class TensionerControl extends ConfiguredOpMode {
+public class TensionerControl extends OpModeWrapper {
 	private Tensioner tensioner;
 	
 	@Override

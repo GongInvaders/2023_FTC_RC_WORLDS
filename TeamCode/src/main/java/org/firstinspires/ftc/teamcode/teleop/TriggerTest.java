@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.ConfiguredOpMode;
+import org.firstinspires.ftc.teamcode.teamUtil.CommandScheduler.OpModeWrapper;
 
 @TeleOp(name="triggerTest", group="test")
-public class TriggerTest extends ConfiguredOpMode {
+public class TriggerTest extends OpModeWrapper {
 	
 	int count;
 	

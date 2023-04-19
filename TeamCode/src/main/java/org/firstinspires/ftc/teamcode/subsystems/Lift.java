@@ -35,7 +35,7 @@ public class Lift extends Subsystem {
         this(RobotConfig.getInstance());
     }
 
-    private void resetEncoders(){
+    public void resetEncoders(){
         lift0.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         lift1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         lift0.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
